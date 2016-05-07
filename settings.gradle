@@ -1,0 +1,4 @@
+include ':app'
+include ':depslibs:baidumap'
+include ':depslibs:theonenet'
+include ':depslibs:getui'
