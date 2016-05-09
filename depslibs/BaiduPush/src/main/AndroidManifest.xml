@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="goforit.greengrass.whereru.com.getui">
+    package="com.whereru.greengrass.goforit.baidupush">
 
     <application
         android:allowBackup="true"
