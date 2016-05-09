@@ -1,3 +1,10 @@
 build/
 .idea/
 .gradle
+.DS_Store
+app/app-release.apk
+depslibs/depslibs.iml
+depslibs/BaiduMap/BaiduMap.iml
+depslibs/.DS_Store
+depslibs/BaiduMap/.DS_Store
+app/app.iml/

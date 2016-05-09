@@ -1,4 +1,4 @@
 include ':app'
-include ':depslibs:baidumap'
-include ':depslibs:theonenet'
-include ':depslibs:getui'
+include ':depslibs:BaiduMap'
+include ':depslibs:OkHttp'
+include ':depslibs:BaiduPush'
