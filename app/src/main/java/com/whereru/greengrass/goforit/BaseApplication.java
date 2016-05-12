@@ -21,6 +21,8 @@ public class BaseApplication extends Application {
         LocationManager.getInstance(this).startLocation();
         //启动百度地图
         MapManager.getInstance(this).startMap();
+        //注册不断上报地理位置的监听
+        UploadLocation.registerUpLoactionCallBack();
     }
 
     @Override
@@ -30,6 +32,8 @@ public class BaseApplication extends Application {
         PushManager.stopWork(getApplicationContext());
         //关闭百度定位
         LocationManager.getInstance(this).stopLocation();
+        //关闭不断上报地理位置的监听
+        UploadLocation.registerUpLoactionCallBack();
     }
 
 }
