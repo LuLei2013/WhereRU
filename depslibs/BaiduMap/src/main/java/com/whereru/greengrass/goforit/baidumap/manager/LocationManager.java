@@ -9,7 +9,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.model.LatLng;
 import com.whereru.greengrass.goforit.baidumap.utils.Log;
-import com.whereru.greengrass.goforit.baidumap.utils.UiHandler;
+import com.whereru.greengrass.goforit.baidumap.UiHandler;
 
 /**
  * 百度定位服务管理,百度定位初始化并启动后,会心跳般的不断以接口回调的方式返回最新的地理位置坐标信息,

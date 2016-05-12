@@ -13,7 +13,7 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.whereru.greengrass.goforit.BaseActivity;
 import com.whereru.greengrass.goforit.R;
-import com.whereru.greengrass.goforit.baidumap.utils.UiHandler;
+import com.whereru.greengrass.goforit.baidumap.UiHandler;
 import com.whereru.greengrass.goforit.utils.Log;
 
 

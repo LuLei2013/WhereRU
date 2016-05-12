@@ -9,7 +9,6 @@ import android.text.TextUtils;
  */
 public class PushPreferences {
     public static final String PREFERENCE_NAME = "push_preference";
-    public static final String CLIENT_ID = "client_id";
     public static final String APP_ID = "app_id";
     public static final String API_KEY = "api_key";
     public static final String USER_ID = "user_id";
@@ -61,9 +60,6 @@ public class PushPreferences {
     }
 
 
-    public void setClientId(String clientId) {
-        putString(CLIENT_ID, clientId);
-    }
 
     public void setAppId(String appId) {
         putString(APP_ID, appId);
@@ -81,9 +77,6 @@ public class PushPreferences {
         putString(CHANNEL_ID, channelId);
     }
 
-    public String getClientId(String defValue) {
-        return getString(CLIENT_ID, defValue);
-    }
 
     public String getApiKey(String defValue) {
         return getString(API_KEY, defValue);

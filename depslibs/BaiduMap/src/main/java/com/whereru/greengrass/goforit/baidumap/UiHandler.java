@@ -1,4 +1,4 @@
-package com.whereru.greengrass.goforit.baidumap.utils;
+package com.whereru.greengrass.goforit.baidumap;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -17,7 +17,7 @@ public class UiHandler {
     /**
      * 地理位置更新消息类型
      */
-    public static final int MSG_UPDATE_CURRENT_LOCATION = 0x000_000_001;
+    public static final int MSG_UPDATE_CURRENT_LOCATION = 0x000_0_001;
     /**
      * 地理位置变化的所有观察者
      */
