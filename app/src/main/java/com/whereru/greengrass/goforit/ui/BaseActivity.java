@@ -1,4 +1,4 @@
-package com.whereru.greengrass.goforit;
+package com.whereru.greengrass.goforit.ui;
 
 import android.support.v4.app.FragmentActivity;
 

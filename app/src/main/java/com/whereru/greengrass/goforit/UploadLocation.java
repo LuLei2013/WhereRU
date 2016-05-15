@@ -1,64 +1,61 @@
 package com.whereru.greengrass.goforit;
 
+import android.content.Context;
+import android.text.TextUtils;
+
 import com.baidu.mapapi.model.LatLng;
 import com.whereru.greengrass.goforit.baidumap.UiHandler;
-import com.whereru.greengrass.goforit.utils.Log;
+import com.whereru.greengrass.goforit.baidupush.Log;
+import com.whereru.greengrass.goforit.baidupush.utils.PushPreferences;
+import com.whereru.greengrass.goforit.okhttp.HttpClient;
+import com.whereru.greengrass.goforit.okhttp.callback.CallBack;
+import com.whereru.greengrass.goforit.okhttp.parser.StringParser;
 
 
-import java.io.IOException;
-import java.util.Date;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 
 /**
  * Created by lulei on 16/5/12.
  * 该类负责,当坐标变化时,将新的坐标不断上传到服务器
  */
 public class UploadLocation {
+    private static Context context;
     private static final OkHttpClient client = new OkHttpClient();
-    private static final UiHandler.LocationChangeListener handler = new UiHandler.LocationChangeListener() {
+    private static final UiHandler.LocationChangeListener licationChangedListenter = new UiHandler.LocationChangeListener() {
         @Override
         public void onLocationChanged(LatLng coordinate) {
-
-            try {
-                Request request = new Request.Builder()
-                        .url("http://172.21.109.17:9090/whereru/updatecoord?lat=" + coordinate.latitude + "&lng=" + coordinate.longitude)
-                        .build();
-                client.newCall(request).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        if (!response.isSuccessful())
-                            throw new IOException("Unexpected code " + response);
-                        Headers responseHeaders = response.headers();
-                        for (int i = 0, size = responseHeaders.size(); i < size; i++) {
-                            Log.e(responseHeaders.name(i) + ": " + responseHeaders.value(i));
-                        }
-                        Log.e(new Date(System.currentTimeMillis()) + response.body().string());
-                    }
-                });
-
-
-            } catch (Exception e) {
-                Log.e(new Date(System.currentTimeMillis()) + "request to test server error" + e.fillInStackTrace());
+            String channel_id = PushPreferences.getInstance(context).getChannelId(null);
+            if (TextUtils.isEmpty(channel_id)) {
+                return;
             }
+            long businessId = PushPreferences.getInstance(context).getCurrentBusinessId();
+            Log.e("upload business ID:" + businessId + "." +android.os.Process.myPid());
+            HttpClient client = HttpClient.getInstance();
+            // 估计有缓存
+            Request request = new Request.Builder()
+                    .url("http://192.168.1.102:9099/whereru/updatecoord"
+                            + "?user_id=kevin"
+                            + "&channel_id=" + channel_id
+                            + "&lat=" + coordinate.latitude
+                            + "&lng=" + coordinate.longitude
+                            + "&biz_area_id=" + businessId
+                    )
+                    .build();
+            client.newCall(request).enqueue(new CallBack(new StringParser()));
         }
     };
 
-    public static void registerUpLoactionCallBack() {
-        UiHandler.registerLocationChangedListener(handler);
+    private static void registerUpLoactionCallBack() {
+        UiHandler.registerLocationChangedListener(licationChangedListenter);
     }
 
-    public static void unregisterUpLoactionCallBack() {
-        UiHandler.unregisterLocationChangedListener(handler);
+    public static void stopUploadLocation() {
+        UiHandler.unregisterLocationChangedListener(licationChangedListenter);
+    }
+
+    public static void startUploadLocation(Context cxt) {
+        context = cxt;
+        registerUpLoactionCallBack();
     }
 }

@@ -1,6 +1,9 @@
 package com.whereru.greengrass.goforit.activity;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -11,9 +14,9 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
-import com.whereru.greengrass.goforit.BaseActivity;
 import com.whereru.greengrass.goforit.R;
 import com.whereru.greengrass.goforit.baidumap.UiHandler;
+import com.whereru.greengrass.goforit.ui.BaseActivity;
 import com.whereru.greengrass.goforit.utils.Log;
 
 
@@ -39,6 +42,15 @@ public class MainActivity extends BaseActivity {
         mMapView = (MapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
         init();
+        initWindow();
+//        findViewById(R.id.header).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setClassName(getPackageName(), "com.whereru.greengrass.goforit.activity.Main2Activity");
+//                startActivity(intent);
+//            }
+//        });
     }
 
 
@@ -62,7 +74,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void onLocationChange(LatLng coordinate) {
-        Log.d("收到定位更新marker消息啦~~");
         if (mCurrentLoationMarker != null) {
             //删除之前的位置marker
             mCurrentLoationMarker.remove();
@@ -95,12 +106,44 @@ public class MainActivity extends BaseActivity {
                 .icon(BitmapDescriptorFactory
                         .fromResource(R.mipmap.location));
     }
+
+    //    void test() {
+//        new TThread("setThread :'") {
+//            @Override
+//            public void run() {
+//                while (true) {
+//                    PushPreferences.getInstance(MainActivity.this).setCurrentBusinessId(100);
+//                    Log.d(getName() + " set Again  : " + PushPreferences.getInstance(MainActivity.this).getCurrentBusinessId());
+//                }
+//            }
+//        }.start();
+//
+//        for (int i = 0; i < 10; i++) {
+//            new TThread("getThread" + i) {
+//
+//                @Override
+//                public void run() {
+//                    while (true) {
+//                       Log.d(getName() + " businessId is :" + PushPreferences.getInstance(MainActivity.this).getCurrentBusinessId());
+//                    }
+//                }
+//            }.start();
+//        }
+//    }
+//
+//    static class TThread extends Thread {
+//        TThread(String name) {
+//            super(name);
+//        }
+//    }
+    @TargetApi(19)
+    private void initWindow() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        }
+    }
+
 }
-
-
-
-
-
-
 
 

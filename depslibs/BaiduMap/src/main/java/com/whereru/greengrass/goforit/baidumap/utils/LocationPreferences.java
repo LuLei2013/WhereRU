@@ -2,6 +2,7 @@ package com.whereru.greengrass.goforit.baidumap.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.text.TextUtils;
 
 import com.baidu.mapapi.model.LatLng;
@@ -35,7 +36,7 @@ public class LocationPreferences {
     }
 
     private void commit() {
-        if (android.os.Build.VERSION.SDK_INT >= 9) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             mEditor.apply();
         } else {
             mEditor.commit();
@@ -80,4 +81,10 @@ public class LocationPreferences {
     public LatLng getLatLng(LatLng defValue) {
         return new LatLng(getLat(defValue.latitude), getLng(defValue.longitude));
     }
+
+    public LatLng putLatLng(LatLng defValue) {
+        return new LatLng(getLat(defValue.latitude), getLng(defValue.longitude));
+    }
+
+
 }

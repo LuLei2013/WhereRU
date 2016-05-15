@@ -9,7 +9,7 @@ import com.baidu.mapapi.SDKInitializer;
  */
 public class MapManager {
 
-    private static MapManager mInstance;
+    private static volatile MapManager mInstance;
 
     private Context mContext;
 

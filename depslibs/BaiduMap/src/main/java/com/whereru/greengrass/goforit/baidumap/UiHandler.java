@@ -5,15 +5,24 @@ import android.os.Looper;
 import android.os.Message;
 
 import com.baidu.mapapi.model.LatLng;
+import com.whereru.greengrass.goforit.baidumap.utils.Log;
 
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentMap;
 
 
 /**
+ * 该类只能运行在应用进程中
+ * <p/>
+ * <p/>
  * Created by lulei on 16/5/10.
  */
 public class UiHandler {
+
+    static {
+        Log.i("com.whereru.greengrass.goforit.baidumap.UiHandler has been init<static> in" + android.os.Process.myPid());
+    }
+
     /**
      * 地理位置更新消息类型
      */
@@ -43,40 +52,6 @@ public class UiHandler {
         }
     };
 
-    public final static boolean post(Runnable r) {
-        if (uiHandler == null) {
-            return false;
-        }
-        uiHandler.removeCallbacks(r);
-        return uiHandler.post(r);
-    }
-
-    public final static boolean postDelayed(Runnable r, long delayMillis) {
-        if (uiHandler == null) {
-            return false;
-        }
-        uiHandler.removeCallbacks(r);
-        return uiHandler.postDelayed(r, delayMillis);
-    }
-
-    public final static Handler getUiHandler() {
-        return uiHandler;
-    }
-
-    public final static boolean postOnceDelayed(Runnable r, long delayMillis) {
-        if (uiHandler == null) {
-            return false;
-        }
-        uiHandler.removeCallbacks(r);
-        return uiHandler.postDelayed(r, delayMillis);
-    }
-
-    public static void removeCallbacks(Runnable runnable) {
-        if (uiHandler == null) {
-            return;
-        }
-        uiHandler.removeCallbacks(runnable);
-    }
 
     public static void sendMessage(Message msg) {
         if (uiHandler == null) {

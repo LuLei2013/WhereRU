@@ -10,6 +10,7 @@ import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.model.LatLng;
 import com.whereru.greengrass.goforit.baidumap.utils.Log;
 import com.whereru.greengrass.goforit.baidumap.UiHandler;
+import com.whereru.greengrass.goforit.baidumap.utils.Util;
 
 /**
  * 百度定位服务管理,百度定位初始化并启动后,会心跳般的不断以接口回调的方式返回最新的地理位置坐标信息,
@@ -22,14 +23,30 @@ public final class LocationManager {
     // 默认的定位更新时间间隔
     private static final int DEFAULT_LOCATION_SCAN_SPAN = 5000;
 
-    private static LocationManager mInstance;
-
+    private static volatile LocationManager mInstance;
+    // 该context 为应用主进程的Context
     private Context mContext;
+    private LocationClientOption mLocationOption;
     //百度定位代理类
     private LocationClient mLocationClient;
     //百度定位到地理位置后,回调接口
-    private BDLocationListener mLocationListener;
-    private LocationClientOption mLocationOption;
+    private BDLocationListener mLocationListener = new BDLocationListener() {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            Log.i("@BDLocationListener#onReceiveLocation has been called," + android.os.Process.myPid());
+            if (location == null) {
+                return;
+            }
+            if (Util.IS_DEBUG) {
+                dumpLocation(location);
+            }
+            Message msg = new Message();
+            msg.what = UiHandler.MSG_UPDATE_CURRENT_LOCATION;
+            msg.obj = new LatLng(location.getLatitude(), location.getLongitude());
+            UiHandler.sendMessage(msg);
+        }
+    };
+
 
     private LocationManager(Context context) {
         if (context == null) {
@@ -37,21 +54,7 @@ public final class LocationManager {
         }
         mContext = context.getApplicationContext();
         mLocationClient = new LocationClient(mContext);
-        mLocationListener = new BDLocationListener() {
-            @Override
-            public void onReceiveLocation(BDLocation location) {
-                if (location == null) {
-                    return;
-                }
-                dumpLocation(location);
-                Message msg = Message.obtain();
-                msg.what = UiHandler.MSG_UPDATE_CURRENT_LOCATION;
-                msg.obj = new LatLng(location.getLatitude(), location.getLongitude());
-                UiHandler.sendMessage(msg);
-            }
-        };
-        //注册监听函数
-        mLocationClient.registerLocationListener(mLocationListener);
+        Log.i("@BDLocationListener#LocationManager <init> has been called," + android.os.Process.myPid());
     }
 
     public static LocationManager getInstance(Context context) {
@@ -82,14 +85,17 @@ public final class LocationManager {
     }
 
     /**
-     * 启动百度定位服务,首先清楚消息队列中没来得及处理的坐标更新的消息
+     * 启动百度定位服务,首先清除消息队列中没来得及处理的坐标更新的消息
      */
     public void startLocation(int locationScanSpan) {
         if (locationScanSpan < 1000) {
-            locationScanSpan = 1000;
+            locationScanSpan = DEFAULT_LOCATION_SCAN_SPAN;
         }
         UiHandler.removeLocationMessages();
+        //注册监听函数
+        mLocationClient.registerLocationListener(mLocationListener);
         initLocation(locationScanSpan);
+        //注册将定位结果分发到应用进程中的广播
         mLocationClient.start();
     }
 
@@ -122,6 +128,7 @@ public final class LocationManager {
         mLocationOption.setEnableSimulateGps(false);
         mLocationClient.setLocOption(mLocationOption);
     }
+
 
     /**
      * dump出指定坐标位置的详细信息

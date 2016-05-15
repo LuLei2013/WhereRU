@@ -1,11 +1,11 @@
 package com.whereru.greengrass.goforit.baidupush.receiver;
 
 import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
 
+import com.whereru.greengrass.goforit.baidupush.Log;
+import com.whereru.greengrass.goforit.baidupush.Util;
+import com.whereru.greengrass.goforit.baidupush.utils.PushMessageParser;
 import com.whereru.greengrass.goforit.baidupush.utils.PushPreferences;
-import com.whereru.greengrass.goforit.baidupush.utils.Utils;
 
 import java.util.List;
 
@@ -16,10 +16,8 @@ public class PushMessageReceiver extends com.baidu.android.pushservice.PushMessa
 
     @Override
     public void onBind(Context context, int errorCode, String appId, String userId, String channelId, String requestId) {
-        if (Utils.IS_DEBUG) {
-            Log.e("Ruby", "onBind  errorCode:" + errorCode + " , appId :" + appId + "  ,userId :" + userId + "  ,channelId:" + channelId + "  ,requestId :" + requestId);
-        }
-        if (errorCode == 0 && TextUtils.isEmpty(PushPreferences.getInstance(context).getChannelId(null))) {
+        Log.e("onBind  errorCode:" + errorCode + " , appId :" + appId + "  ,userId :" + userId + "  ,channelId:" + channelId + "  ,requestId :" + requestId);
+        if (errorCode == 0 && !PushPreferences.getInstance(context).contains(PushPreferences.CHANNEL_ID)) {
             updatePushParas(context, appId, userId, channelId);
         }
 
@@ -47,8 +45,9 @@ public class PushMessageReceiver extends com.baidu.android.pushservice.PushMessa
     }
 
     @Override
-    public void onMessage(Context context, String s, String s1) {
-        Log.e("Ruby", "onMessage s : " + s + " ,s1 " + s1);
+    public void onMessage(Context context, String rawData, String s1) {
+        Log.e("onMessage rawData : " + rawData + " ,s1 " + s1);
+        PushMessageParser.parse(rawData);
     }
 
     @Override

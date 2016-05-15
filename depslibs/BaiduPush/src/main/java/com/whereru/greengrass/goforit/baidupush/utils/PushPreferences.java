@@ -1,8 +1,12 @@
 package com.whereru.greengrass.goforit.baidupush.utils;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.text.TextUtils;
+
+import com.whereru.greengrass.goforit.baidupush.Log;
 
 /**
  * Created by lulei on 16/5/9.
@@ -13,7 +17,8 @@ public class PushPreferences {
     public static final String API_KEY = "api_key";
     public static final String USER_ID = "user_id";
     public static final String CHANNEL_ID = "channel_id";
-    private static PushPreferences mInstance;
+    public static final String CURRENT_BUSINESS_ID = "current_business_id";
+    private static volatile PushPreferences mInstance;
 
     private SharedPreferences mPref;
     private SharedPreferences.Editor mEditor;
@@ -27,6 +32,8 @@ public class PushPreferences {
         if (mInstance == null) {
             synchronized (PushPreferences.class) {
                 if (mInstance == null) {
+                    Log.e("pname:" + getCurProcessName(context) + "++++++++++pid:" + android.os.Process.myPid());
+                    printStackTrace();
                     mInstance = new PushPreferences(context.getApplicationContext());
                 }
             }
@@ -35,7 +42,7 @@ public class PushPreferences {
     }
 
     private void commit() {
-        if (android.os.Build.VERSION.SDK_INT >= 9) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             mEditor.apply();
         } else {
             mEditor.commit();
@@ -58,7 +65,6 @@ public class PushPreferences {
     public String getString(String key, String defValue) {
         return mPref.getString(key, defValue);
     }
-
 
 
     public void setAppId(String appId) {
@@ -92,5 +98,38 @@ public class PushPreferences {
 
     public String getChannelId(String defValue) {
         return getString(CHANNEL_ID, defValue);
+    }
+
+    public long getCurrentBusinessId() {
+        return mPref.getLong(CURRENT_BUSINESS_ID, -1l);
+    }
+
+    public void setCurrentBusinessId(long businessId) {
+        mEditor.putLong(CURRENT_BUSINESS_ID, businessId);
+        commit();
+    }
+
+    static String getCurProcessName(Context context) {
+        int pid = android.os.Process.myPid();
+        ActivityManager mActivityManager = (ActivityManager) context
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : mActivityManager
+                .getRunningAppProcesses()) {
+            if (appProcess.pid == pid) {
+                return appProcess.processName;
+            }
+        }
+        return null;
+    }
+
+    static void printStackTrace() {
+        StackTraceElement[] stackElements = new Throwable().getStackTrace();
+        if (stackElements != null) {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < stackElements.length; i++) {
+                sb.append(stackElements[i] + "\n");
+            }
+            Log.e(sb.toString());
+        }
     }
 }
