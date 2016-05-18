@@ -13,13 +13,14 @@ import com.whereru.greengrass.goforit.utils.Util;
  * Created by didi on 16/5/9.
  */
 public class BaseApplication extends Application {
+    //该实例为应用主进程
     public static Context sApplicatonContext;
 
     @Override
     public void onCreate() {
         super.onCreate();
         if (getPackageName().equals(Util.getCurProcessName(getApplicationContext()))) {
-            Log.e("BaseApplication onCreate has been called." + android.os.Process.myPid());
+            Log.e("@BaseApplication#onCreate");
             sApplicatonContext = getApplicationContext();
             //启动百度推送
             PushManager.startPush(getApplicationContext());
@@ -46,6 +47,4 @@ public class BaseApplication extends Application {
             sApplicatonContext = null;
         }
     }
-
-
 }

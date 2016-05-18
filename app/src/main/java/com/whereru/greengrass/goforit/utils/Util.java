@@ -9,6 +9,8 @@ import android.content.Context;
 public class Util {
     final static public boolean IS_DEBUG = true;
 
+    // 获取当前进程名
+
     public static String getCurProcessName(Context context) {
         if (context == null) {
             return null;

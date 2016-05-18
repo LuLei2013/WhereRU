@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">WhereRU</string>
-    <string name="drawer_open">开</string>
-    <string name="drawer_close">关</string>
+    <string name="main_control_message">消息</string>
+    <string name="main_control_map">地图</string>
+    <string name="main_control_friends">联系人</string>
 </resources>

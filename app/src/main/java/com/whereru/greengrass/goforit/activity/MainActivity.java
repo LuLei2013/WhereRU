@@ -17,7 +17,6 @@ import com.baidu.mapapi.model.LatLng;
 import com.whereru.greengrass.goforit.R;
 import com.whereru.greengrass.goforit.baidumap.UiHandler;
 import com.whereru.greengrass.goforit.ui.BaseActivity;
-import com.whereru.greengrass.goforit.utils.Log;
 
 
 public class MainActivity extends BaseActivity {
@@ -37,20 +36,12 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.layout_main);
         //获取地图控件引用
-        mMapView = (MapView) findViewById(R.id.bmapView);
+        mMapView = (MapView) findViewById(R.id.mapView);
         mBaiduMap = mMapView.getMap();
         init();
         initWindow();
-//        findViewById(R.id.header).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setClassName(getPackageName(), "com.whereru.greengrass.goforit.activity.Main2Activity");
-//                startActivity(intent);
-//            }
-//        });
     }
 
 
@@ -107,35 +98,6 @@ public class MainActivity extends BaseActivity {
                         .fromResource(R.mipmap.location));
     }
 
-    //    void test() {
-//        new TThread("setThread :'") {
-//            @Override
-//            public void run() {
-//                while (true) {
-//                    PushPreferences.getInstance(MainActivity.this).setCurrentBusinessId(100);
-//                    Log.d(getName() + " set Again  : " + PushPreferences.getInstance(MainActivity.this).getCurrentBusinessId());
-//                }
-//            }
-//        }.start();
-//
-//        for (int i = 0; i < 10; i++) {
-//            new TThread("getThread" + i) {
-//
-//                @Override
-//                public void run() {
-//                    while (true) {
-//                       Log.d(getName() + " businessId is :" + PushPreferences.getInstance(MainActivity.this).getCurrentBusinessId());
-//                    }
-//                }
-//            }.start();
-//        }
-//    }
-//
-//    static class TThread extends Thread {
-//        TThread(String name) {
-//            super(name);
-//        }
-//    }
     @TargetApi(19)
     private void initWindow() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
