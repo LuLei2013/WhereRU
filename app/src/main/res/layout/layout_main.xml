@@ -4,34 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/main_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/main_toolbar"
-            layout="@layout/layout_main_toolbar" />
-
-        <com.baidu.mapapi.map.MapView
-            android:id="@+id/mapView"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:clickable="true" />
-
-        <include
-            android:id="@+id/main_control_panel"
-            layout="@layout/layout_main_control"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
-    </RelativeLayout>
+    <include layout="@layout/layout_main_content"/>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/main_menu"
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="#99b2b2b2"
         app:headerLayout="@layout/layout_main_menu_header"
         app:menu="@menu/layout_main_menu" />
 </android.support.v4.widget.DrawerLayout>
