@@ -7,21 +7,104 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.whereru.greengrass.goforit.R;
+import com.whereru.greengrass.goforit.adapter.MessageFramentAdapter;
+import com.whereru.greengrass.goforit.swipelistview.SwipeListView;
 import com.whereru.greengrass.goforit.ui.BaseFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lulei on 16/5/18.
  */
 public class MessageFragment extends BaseFragment {
+    private SwipeListView mSwipeListView;
+    private MessageFramentAdapter mMessageFramentAdapter;
+    private List<MessageItem> mMessageItemList;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View messageFragmentView = inflater.inflate(R.layout.layou_message_fragment, container, false);
+        View messageFragmentView = inflater.inflate(R.layout.layout_message_fragment_content, container, false);
+        mSwipeListView = (SwipeListView) messageFragmentView.findViewById(R.id.message_fragment_list);
+        /**
+         * 从本地数据库中预取,以后每次有推送时,都在这里更新mMessageItemList
+         */
+        //测试数据
+        test();
+        mSwipeListView.setAdapter(new MessageFramentAdapter(getActivity().getApplicationContext(), mSwipeListView, mMessageItemList));
         if (messageFragmentView == null) {
             return messageFragmentView;
         }
         return messageFragmentView;
+    }
+
+    /**
+     * 消息列表对应的数据模型
+     */
+    public static class MessageItem {
+        /**
+         * 商铺头像Url
+         */
+        private String mBusinessAvatarUrl;
+        /**
+         * 商铺对应的Url
+         */
+        private String mBusinessUrl;
+        /**
+         * 商铺名称
+         */
+        private String mBusinessName;
+        /**
+         * 该商铺的最后一条留言
+         */
+        private String mLastMessage;
+
+        MessageItem(String businessAvatarUrl, String businessUrl, String businessName, String lastMessage) {
+            this.mBusinessAvatarUrl = businessAvatarUrl;
+            this.mBusinessUrl = businessUrl;
+            this.mBusinessName = businessName;
+            this.mLastMessage = lastMessage;
+        }
+
+        public String getBusinessAvatarUrl() {
+            return mBusinessAvatarUrl;
+        }
+
+        public String getBusinessUrl() {
+            return mBusinessUrl;
+        }
+
+        public String getLastMessage() {
+            return mLastMessage;
+        }
+
+        public String getBusinessName() {
+            return mBusinessName;
+        }
+
+        public void setBusinessAvatarUrl(String businessAvatarUrl) {
+            this.mBusinessAvatarUrl = businessAvatarUrl;
+        }
+
+        public void setBusinessUrl(String businessUrl) {
+            this.mBusinessUrl = businessUrl;
+        }
+
+        public void setBusinessName(String businessName) {
+            this.mBusinessName = businessName;
+        }
+
+        public void setLastMessage(String lastMessage) {
+            this.mLastMessage = lastMessage;
+        }
+    }
+
+    private void test() {
+        mMessageItemList = new ArrayList<>();
+        for (int i = 0; i < 40; i++) {
+            mMessageItemList.add(new MessageItem("businessUrl", "businessAvatarUrl", "数字山谷" + i, "hell,times is :" + i));
+        }
     }
 }

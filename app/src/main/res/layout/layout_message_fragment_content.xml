@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:swipe="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.whereru.greengrass.goforit.swipelistview.SwipeListView
+        android:id="@+id/message_fragment_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:listSelector="#ff112233"
+        swipe:swipeActionLeft="reveal"
+        swipe:swipeBackView="@+id/message_fragment_list_item_back_view"
+        swipe:swipeCloseAllItemsWhenMoveList="true"
+        swipe:swipeFrontView="@+id/message_fragment_list_item_front_view"
+        swipe:swipeMode="both"
+        swipe:swipeOffsetLeft="128dp"
+        swipe:swipeOffsetRight="0dp"
+        swipe:swipeOpenOnLongPress="true" />
+
+
+</RelativeLayout>

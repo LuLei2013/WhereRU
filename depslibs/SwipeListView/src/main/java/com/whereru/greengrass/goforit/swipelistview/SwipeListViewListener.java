@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package eventbus.test.com.swipelistview;
+package com.whereru.greengrass.goforit.swipelistview;
 
 /**
  * Listener to get callback notifications for the SwipeListView

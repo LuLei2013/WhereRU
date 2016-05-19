@@ -1,4 +1,4 @@
-package eventbus.test.com.swipelistview;
+package com.whereru.greengrass.goforit.swipelistview;
 
 public class BaseSwipeListViewListener implements SwipeListViewListener {
     @Override

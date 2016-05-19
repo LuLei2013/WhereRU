@@ -18,7 +18,7 @@
  * limitations under the License.
  */
 
-package eventbus.test.com.swipelistview;
+package com.whereru.greengrass.goforit.swipelistview;
 
 import android.graphics.Rect;
 import android.os.Build;
