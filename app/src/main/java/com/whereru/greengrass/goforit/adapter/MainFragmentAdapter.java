@@ -9,16 +9,16 @@ import com.whereru.greengrass.goforit.fragment.MessageFragment;
 import com.whereru.greengrass.goforit.fragment.RelationShipFragment;
 
 /**
- * Created by didi on 16/5/18.
+ * Created by lulei on 16/5/18.
  */
 public class MainFragmentAdapter extends FragmentPagerAdapter {
     /**
      * 主界面 Fragment的数量
      */
-    private static int DEFAULT_FRAGMENT_COUNNTER = 3;
-    public static int FRAGMENT_POSITION_MESSAGE = 0;
-    public static int FRAGMENT_POSITION_MAP = 1;
-    public static int FRAGMENT_POSITION_RELATIONSHIP = 3;
+    private static final int DEFAULT_FRAGMENT_COUNNTER = 3;
+    public static final int FRAGMENT_POSITION_MESSAGE = 0;
+    public static final int FRAGMENT_POSITION_MAP = 1;
+    public static final int FRAGMENT_POSITION_RELATIONSHIP = 2;
 
     public MainFragmentAdapter(FragmentManager fm) {
         super(fm);
@@ -29,13 +29,13 @@ public class MainFragmentAdapter extends FragmentPagerAdapter {
         if (position < 0) {
             position = 0;
         }
-        position = position / DEFAULT_FRAGMENT_COUNNTER;
+        position = position & DEFAULT_FRAGMENT_COUNNTER;
         switch (position) {
-            case 0:
+            case FRAGMENT_POSITION_MESSAGE:
                 return new MessageFragment();
-            case 1:
+            case FRAGMENT_POSITION_MAP:
                 return new MapFragment();
-            case 2:
+            case FRAGMENT_POSITION_RELATIONSHIP:
                 return new RelationShipFragment();
         }
         return null;

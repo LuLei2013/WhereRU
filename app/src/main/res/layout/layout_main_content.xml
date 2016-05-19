@@ -13,7 +13,6 @@
         layout="@layout/layout_main_toolbar" />
 
     <include
-        android:id="@+id/main_content_control"
         layout="@layout/layout_main_content_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

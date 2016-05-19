@@ -14,20 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/line"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:orientation="horizontal">
 
 
         <LinearLayout
             android:id="@+id/main_content_control_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:background="@drawable/main_content_control_message_background" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -38,15 +41,16 @@
 
         <LinearLayout
             android:id="@+id/main_content_control_map"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:background="@drawable/main_content_control_map_background" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,15 +60,16 @@
 
         <LinearLayout
             android:id="@+id/main_content_control_relationship"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/ic_launcher" />
+                android:background="@drawable/main_content_control_relationship_background" />
 
             <TextView
                 android:layout_width="wrap_content"
