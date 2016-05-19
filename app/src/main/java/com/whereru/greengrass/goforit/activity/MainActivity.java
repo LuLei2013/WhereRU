@@ -1,15 +1,15 @@
 package com.whereru.greengrass.goforit.activity;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.whereru.greengrass.goforit.R;
 import com.whereru.greengrass.goforit.adapter.MainFragmentAdapter;
+import com.whereru.greengrass.goforit.ui.BaseActivity;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends BaseActivity {
     private View mMainControlMessage;
     private View mMainControlMap;
     private View mMainControlRelationShip;
