@@ -15,8 +15,7 @@
         swipe:swipeFrontView="@+id/message_fragment_list_item_front_view"
         swipe:swipeMode="both"
         swipe:swipeOffsetLeft="128dp"
-        swipe:swipeOffsetRight="0dp"
-        swipe:swipeOpenOnLongPress="true" />
+        swipe:swipeOffsetRight="0dp" />
 
 
 </RelativeLayout>

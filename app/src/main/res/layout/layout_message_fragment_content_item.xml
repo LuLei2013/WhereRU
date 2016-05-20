@@ -45,15 +45,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#ffffffff"
+            android:background="#ff11ffee"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/business_name"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
                 android:layout_weight="2"
+                android:textColor="#ff987654"
                 android:gravity="left|center_vertical"
                 android:minHeight="?android:attr/listPreferredItemHeight"
                 android:textAppearance="?android:attr/textAppearanceLarge"
@@ -64,8 +64,8 @@
                 android:id="@+id/the_last_message"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
+                android:textColor="#ff123456"
                 android:gravity="left|center_vertical"
                 android:minHeight="?android:attr/listPreferredItemHeight"
                 android:textAppearance="?android:attr/textAppearanceLarge"

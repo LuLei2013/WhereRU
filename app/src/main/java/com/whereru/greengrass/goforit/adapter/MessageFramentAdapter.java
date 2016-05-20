@@ -25,7 +25,7 @@ public class MessageFramentAdapter extends BaseAdapter {
         this.mContext = context;
         this.mListView = swipeListView;
         this.mMessageItemList = messageItemList;
-        mInInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mInInflater = LayoutInflater.from(mContext);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class MessageFramentAdapter extends BaseAdapter {
         final MessageFragment.MessageItem item = getItem(position);
         ViewHolder holder;
         if (convertView == null) {
-            convertView = mInInflater.inflate(R.layout.layout_message_fragment_content_item, parent, false);
+            convertView = mInInflater.inflate(R.layout.layout_message_fragment_content_item, null);
             holder = new ViewHolder();
             holder.mGotoTop = convertView.findViewById(R.id.go_to_top);
             holder.mDeleleThisOne = convertView.findViewById(R.id.delete_this_one);
@@ -65,8 +65,6 @@ public class MessageFramentAdapter extends BaseAdapter {
             convertView.setTag(holder);
         }
         holder = (ViewHolder) convertView.getTag();
-
-        ((SwipeListView) parent).recycle(convertView, position);
 //头像这里没有设置
         holder.mBusinessName.setText(mMessageItemList.get(position).getBusinessName());
         holder.mLastMessage.setText(mMessageItemList.get(position).getLastMessage());

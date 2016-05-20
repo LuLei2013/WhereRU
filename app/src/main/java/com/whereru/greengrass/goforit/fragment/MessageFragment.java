@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 
 import com.whereru.greengrass.goforit.R;
 import com.whereru.greengrass.goforit.adapter.MessageFramentAdapter;
+import com.whereru.greengrass.goforit.baidumap.utils.Log;
+import com.whereru.greengrass.goforit.swipelistview.BaseSwipeListViewListener;
 import com.whereru.greengrass.goforit.swipelistview.SwipeListView;
 import com.whereru.greengrass.goforit.ui.BaseFragment;
 
@@ -34,9 +36,22 @@ public class MessageFragment extends BaseFragment {
         //测试数据
         test();
         mSwipeListView.setAdapter(new MessageFramentAdapter(getActivity().getApplicationContext(), mSwipeListView, mMessageItemList));
-        if (messageFragmentView == null) {
-            return messageFragmentView;
-        }
+        mSwipeListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
+            // 这里可以重写很多方法
+            @Override
+            public void onListChanged() {
+                super.onListChanged();
+                Log.i("@MessageFragment#onCreateView#mSwipeListView#BaseSwipeListViewListener#onListChanged");
+            }
+
+            @Override
+            public void onClickFrontView(int position) {
+
+                super.onClickFrontView(position);
+                Log.i("@MessageFragment#onCreateView#mSwipeListView#BaseSwipeListViewListener#onClickFrontView?onClickFrontView=" + position);
+            }
+
+        });
         return messageFragmentView;
     }
 

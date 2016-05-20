@@ -7,13 +7,14 @@ import android.view.View;
 import com.whereru.greengrass.goforit.R;
 import com.whereru.greengrass.goforit.adapter.MainFragmentAdapter;
 import com.whereru.greengrass.goforit.ui.BaseActivity;
+import com.whereru.greengrass.goforit.ui.BaseViewPager;
 
 
 public class MainActivity extends BaseActivity {
     private View mMainControlMessage;
     private View mMainControlMap;
     private View mMainControlRelationShip;
-    private ViewPager mFragmentViewPager;
+    private BaseViewPager mFragmentViewPager;
     private MainFragmentAdapter mMainFragmentAdapter;
 
 
@@ -58,16 +59,15 @@ public class MainActivity extends BaseActivity {
     }
 
     private void intView() {
-        mFragmentViewPager = (ViewPager) findViewById(R.id.main_content_content_viewpager);
+        mFragmentViewPager = (BaseViewPager) findViewById(R.id.main_content_content_viewpager);
         mMainControlMessage = findViewById(R.id.main_content_control_message);
         mMainControlMap = findViewById(R.id.main_content_control_map);
         mMainControlRelationShip = findViewById(R.id.main_content_control_relationship);
         mMainFragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         mFragmentViewPager.setAdapter(mMainFragmentAdapter);
         mFragmentViewPager.setCurrentItem(MainFragmentAdapter.FRAGMENT_POSITION_MESSAGE);
+        mFragmentViewPager.setHorizonalSrocll(false);
     }
-
-
 }
 
 
