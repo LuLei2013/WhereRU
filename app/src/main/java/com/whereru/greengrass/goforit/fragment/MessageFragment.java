@@ -35,7 +35,8 @@ public class MessageFragment extends BaseFragment {
          */
         //测试数据
         test();
-        mSwipeListView.setAdapter(new MessageFramentAdapter(getActivity().getApplicationContext(), mSwipeListView, mMessageItemList));
+        mMessageFramentAdapter = new MessageFramentAdapter(getActivity().getApplicationContext(), mSwipeListView, mMessageItemList);
+        mSwipeListView.setAdapter(mMessageFramentAdapter);
         mSwipeListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
             // 这里可以重写很多方法
             @Override

@@ -25,7 +25,7 @@ public class MessageFramentAdapter extends BaseAdapter {
         this.mContext = context;
         this.mListView = swipeListView;
         this.mMessageItemList = messageItemList;
-        mInInflater = LayoutInflater.from(mContext);
+        this.mInInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
