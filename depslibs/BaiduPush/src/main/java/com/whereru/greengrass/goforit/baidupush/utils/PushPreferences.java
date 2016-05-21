@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.whereru.greengrass.goforit.baidupush.Log;
+import com.whereru.greengrass.goforit.commonmodule.utils.Log;
 
 /**
  * Created by lulei on 16/5/9.

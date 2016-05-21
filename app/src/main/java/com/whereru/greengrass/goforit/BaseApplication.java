@@ -6,8 +6,8 @@ import android.content.Context;
 import com.whereru.greengrass.goforit.baidupush.PushManager;
 import com.whereru.greengrass.goforit.baidumap.manager.LocationManager;
 import com.whereru.greengrass.goforit.baidumap.manager.MapManager;
-import com.whereru.greengrass.goforit.utils.Log;
-import com.whereru.greengrass.goforit.utils.Util;
+import com.whereru.greengrass.goforit.commonmodule.utils.Log;
+import com.whereru.greengrass.goforit.commonmodule.utils.Util;
 
 /**
  * Created by didi on 16/5/9.
@@ -29,7 +29,7 @@ public class BaseApplication extends Application {
             //启动百度地图
             MapManager.getInstance(this).startMap();
             //注册不断上报地理位置的监听
-            UploadLocation.startUploadLocation(this);
+//            UploadLocation.startUploadLocation(this);
         }
     }
 
@@ -43,7 +43,7 @@ public class BaseApplication extends Application {
             //关闭百度定位
             LocationManager.getInstance(this).stopLocation();
             //关闭不断上报地理位置的监听
-            UploadLocation.stopUploadLocation();
+//            UploadLocation.stopUploadLocation();
             sApplicatonContext = null;
         }
     }

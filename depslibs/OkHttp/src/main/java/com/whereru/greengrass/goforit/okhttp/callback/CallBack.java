@@ -3,7 +3,7 @@ package com.whereru.greengrass.goforit.okhttp.callback;
 import android.os.Handler;
 import android.os.Message;
 
-import com.whereru.greengrass.goforit.okhttp.UiHandler;
+import com.whereru.greengrass.goforit.commonmodule.UiHandler;
 import com.whereru.greengrass.goforit.okhttp.parser.Parser;
 
 import java.io.IOException;

@@ -1,5 +1,7 @@
 package com.whereru.greengrass.goforit.okhttp;
 
+import com.whereru.greengrass.goforit.commonmodule.utils.Log;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;

@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import com.baidu.mapapi.model.LatLng;
 
 /**
+ * 还没使用,初步定义为地图 定位 界面移动时展示辅助
  * Created by lulei on 16/5/9.
  */
 public class LocationPreferences {
@@ -43,9 +44,6 @@ public class LocationPreferences {
         }
     }
 
-    public boolean contains(String key) {
-        return mPref.contains(key);
-    }
 
     public void putDouble(String key, double value) {
         mEditor.putLong(key, Double.doubleToLongBits(value));
@@ -82,8 +80,8 @@ public class LocationPreferences {
         return new LatLng(getLat(defValue.latitude), getLng(defValue.longitude));
     }
 
-    public LatLng putLatLng(LatLng defValue) {
-        return new LatLng(getLat(defValue.latitude), getLng(defValue.longitude));
+    public LatLng putLatLng(LatLng latLng) {
+        return new LatLng(getLat(latLng.latitude), getLng(latLng.longitude));
     }
 
 

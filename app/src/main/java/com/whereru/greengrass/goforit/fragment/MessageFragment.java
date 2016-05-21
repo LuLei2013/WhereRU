@@ -7,8 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.whereru.greengrass.goforit.R;
-import com.whereru.greengrass.goforit.adapter.MessageFramentAdapter;
-import com.whereru.greengrass.goforit.baidumap.utils.Log;
+import com.whereru.greengrass.goforit.adapter.MessageFragmentAdapter;
 import com.whereru.greengrass.goforit.swipelistview.BaseSwipeListViewListener;
 import com.whereru.greengrass.goforit.swipelistview.SwipeListView;
 import com.whereru.greengrass.goforit.ui.BaseFragment;
@@ -21,7 +20,7 @@ import java.util.List;
  */
 public class MessageFragment extends BaseFragment {
     private SwipeListView mSwipeListView;
-    private MessageFramentAdapter mMessageFramentAdapter;
+    private MessageFragmentAdapter mMessageFramentAdapter;
     private List<MessageItem> mMessageItemList;
 
     @Nullable
@@ -35,7 +34,7 @@ public class MessageFragment extends BaseFragment {
          */
         //测试数据
         test();
-        mMessageFramentAdapter = new MessageFramentAdapter(getActivity().getApplicationContext(), mSwipeListView, mMessageItemList);
+        mMessageFramentAdapter = new MessageFragmentAdapter(getActivity().getApplicationContext(), mSwipeListView, mMessageItemList);
         mSwipeListView.setAdapter(mMessageFramentAdapter);
         mSwipeListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
             // 这里可以重写很多方法
@@ -119,8 +118,9 @@ public class MessageFragment extends BaseFragment {
 
     private void test() {
         mMessageItemList = new ArrayList<>();
-        for (int i = 0; i < 40; i++) {
+        for (int i = 0; i < 8; i++) {
             mMessageItemList.add(new MessageItem("businessUrl", "businessAvatarUrl", "数字山谷" + i, "hell,times is :" + i));
         }
     }
+
 }

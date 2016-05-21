@@ -2,10 +2,9 @@ package com.whereru.greengrass.goforit.baidupush.receiver;
 
 import android.content.Context;
 
-import com.whereru.greengrass.goforit.baidupush.Log;
-import com.whereru.greengrass.goforit.baidupush.Util;
 import com.whereru.greengrass.goforit.baidupush.utils.PushMessageParser;
 import com.whereru.greengrass.goforit.baidupush.utils.PushPreferences;
+import com.whereru.greengrass.goforit.commonmodule.utils.Log;
 
 import java.util.List;
 

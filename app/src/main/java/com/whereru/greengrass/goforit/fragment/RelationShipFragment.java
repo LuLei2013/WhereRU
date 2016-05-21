@@ -7,20 +7,103 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.whereru.greengrass.goforit.R;
+import com.whereru.greengrass.goforit.adapter.RelationShipFragmentAdapter;
+import com.whereru.greengrass.goforit.baidupush.entity.PushMessage;
+import com.whereru.greengrass.goforit.notification.NotificationMana;
+import com.whereru.greengrass.goforit.swipelistview.BaseSwipeListViewListener;
+import com.whereru.greengrass.goforit.swipelistview.SwipeListView;
 import com.whereru.greengrass.goforit.ui.BaseFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lulei on 16/5/18.
  */
-public class RelationShipFragment  extends BaseFragment {
+public class RelationShipFragment extends BaseFragment {
+    private SwipeListView mSwipeListView;
+    private RelationShipFragmentAdapter mRelationShipFragmentAdapter;
+    private List<PushMessage> mRelationShipItemList;
+
+    public RelationShipFragment() {
+        // 为Fragment 注册EventBus, 使得它可以接收到Push消息回调
+        EventBus.getDefault().register(this);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View messageFragmentView = inflater.inflate(R.layout.layout_relationship_fragment, container, false);
-        if (messageFragmentView == null) {
-            return messageFragmentView;
-        }
+        View messageFragmentView = inflater.inflate(R.layout.layout_relationship_fragment_content, container, false);
+        mSwipeListView = (SwipeListView) messageFragmentView.findViewById(R.id.relationship_fragment_list);
+        /**
+         * 从本地数据库中预取,以后每次有推送时,都在这里更新mMessageItemList
+         */
+        //测试数据
+        test();
+        mRelationShipFragmentAdapter = new RelationShipFragmentAdapter(getActivity().getApplicationContext(), mSwipeListView, mRelationShipItemList);
+        mSwipeListView.setAdapter(mRelationShipFragmentAdapter);
+        mSwipeListView.setSwipeListViewListener(new BaseSwipeListViewListener() {
+            // 这里可以重写很多方法
+            @Override
+            public void onListChanged() {
+                super.onListChanged();
+                Log.i("@MessageFragment#onCreateView#mSwipeListView#BaseSwipeListViewListener#onListChanged");
+            }
+
+            @Override
+            public void onClickFrontView(int position) {
+
+                super.onClickFrontView(position);
+                Log.i("@MessageFragment#onCreateView#mSwipeListView#BaseSwipeListViewListener#onClickFrontView?onClickFrontView=" + position);
+            }
+
+        });
+
         return messageFragmentView;
     }
+
+    private void test() {
+        mRelationShipItemList = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            PushMessage pushmessage = new PushMessage();
+            PushMessage.Data data = new PushMessage.Data();
+            data.setName("尚东数字山谷 " + i);
+            data.setAbstract("卢磊的工作地方 " + i);
+            pushmessage.setData(data);
+            mRelationShipItemList.add(pushmessage);
+        }
+    }
+
+    //
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handlePushMessage(PushMessage pushMsg) {
+        Log.e("@RelationShipFragment#handlePushMessage#pushMsg.getStatus()=:" + pushMsg.getStatus());
+        NotificationMana.addNotificaction(getActivity(), pushMsg);
+        if (pushMsg == null) {
+            return;
+        }
+        for (PushMessage msg : mRelationShipItemList) {
+            if (msg.getStatus() == pushMsg.getStatus() && pushMsg.getStatus() == 3) {
+                mRelationShipItemList.remove(msg);
+                mRelationShipFragmentAdapter.notifyDataSetChanged();
+            } else if (pushMsg.getStatus() == 1 || pushMsg.getStatus() == 2) {
+                Log.e("@RelationShipFragment#handlePushMessage#");
+                mRelationShipItemList.add(pushMsg);
+                mRelationShipFragmentAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        // 为Fragment 撤销EventBus
+        EventBus.getDefault().unregister(this);
+    }
 }
+

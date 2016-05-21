@@ -114,6 +114,7 @@
     <orderEntry type="library" exported="" name="animated-vector-drawable-23.3.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.3.0" level="project" />
     <orderEntry type="module" module-name="OkHttp" exported="" />
+    <orderEntry type="module" module-name="Commonmodule" exported="" />
     <orderEntry type="module" module-name="SwipeListView" exported="" />
     <orderEntry type="module" module-name="BaiduPush" exported="" />
     <orderEntry type="module" module-name="BaiduMap" exported="" />

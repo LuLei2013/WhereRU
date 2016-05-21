@@ -32,14 +32,11 @@ public class BaseViewPager extends ViewPager {
         mIsHorizonalSrocll = isHorizonalSrocll;
     }
 
-    public boolean getHorizontalScroll() {
-        return mIsHorizonalSrocll;
-    }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
         if (!mIsHorizonalSrocll) {
-            return true;
+            return false;
         }
         return super.onInterceptTouchEvent(event);
     }

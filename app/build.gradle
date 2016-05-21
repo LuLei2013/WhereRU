@@ -47,5 +47,5 @@ dependencies {
     compile project(':depslibs:BaiduPush')
     compile project(':depslibs:OkHttp')
     compile project(':depslibs:SwipeListView')
-    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile project(':depslibs:Commonmodule')
 }

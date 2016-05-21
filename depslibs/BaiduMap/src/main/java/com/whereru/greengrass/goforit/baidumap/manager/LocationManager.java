@@ -8,9 +8,8 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.model.LatLng;
-import com.whereru.greengrass.goforit.baidumap.utils.Log;
-import com.whereru.greengrass.goforit.baidumap.UiHandler;
-import com.whereru.greengrass.goforit.baidumap.utils.Util;
+import com.whereru.greengrass.goforit.commonmodule.UiHandler;
+import com.whereru.greengrass.goforit.commonmodule.utils.Log;
 
 /**
  * 百度定位服务管理,百度定位初始化并启动后,会心跳般的不断以接口回调的方式返回最新的地理位置坐标信息,
@@ -33,13 +32,7 @@ public final class LocationManager {
     private BDLocationListener mLocationListener = new BDLocationListener() {
         @Override
         public void onReceiveLocation(BDLocation location) {
-            Log.i("@BDLocationListener#onReceiveLocation has been called," + android.os.Process.myPid());
-            if (location == null) {
-                return;
-            }
-            if (Util.IS_DEBUG) {
-                dumpLocation(location);
-            }
+            Log.i("收到百度定位回调:" + dumpLocation(location));
             Message msg = new Message();
             msg.what = UiHandler.MSG_UPDATE_CURRENT_LOCATION;
             msg.obj = new LatLng(location.getLatitude(), location.getLongitude());
@@ -54,7 +47,6 @@ public final class LocationManager {
         }
         mContext = context.getApplicationContext();
         mLocationClient = new LocationClient(mContext);
-        Log.i("@BDLocationListener#LocationManager <init> has been called," + android.os.Process.myPid());
     }
 
     public static LocationManager getInstance(Context context) {
@@ -75,7 +67,6 @@ public final class LocationManager {
         if (mLocationClient != null) {
             mLocationClient.stop();
             mLocationClient.unRegisterLocationListener(mLocationListener);
-            UiHandler.removeLocationMessages();
         }
     }
 
@@ -91,7 +82,6 @@ public final class LocationManager {
         if (locationScanSpan < 1000) {
             locationScanSpan = DEFAULT_LOCATION_SCAN_SPAN;
         }
-        UiHandler.removeLocationMessages();
         //注册监听函数
         mLocationClient.registerLocationListener(mLocationListener);
         initLocation(locationScanSpan);
@@ -135,7 +125,7 @@ public final class LocationManager {
      *
      * @param location
      */
-    private void dumpLocation(BDLocation location) {
+    private String dumpLocation(BDLocation location) {
         //Receive Location
         StringBuffer sb = new StringBuffer();
         sb.append(location.getLocType());
@@ -182,6 +172,6 @@ public final class LocationManager {
         }
         sb.append("\nlocationdescribe : ");
         sb.append(location.getLocationDescribe());// 位置语义化信息
-        Log.e(sb.toString());
+        return sb.toString();
     }
 }

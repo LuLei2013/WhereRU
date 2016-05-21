@@ -16,7 +16,6 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.whereru.greengrass.goforit.R;
-import com.whereru.greengrass.goforit.baidumap.UiHandler;
 import com.whereru.greengrass.goforit.ui.BaseFragment;
 
 /**
