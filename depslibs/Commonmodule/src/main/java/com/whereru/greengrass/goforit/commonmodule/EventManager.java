@@ -16,7 +16,7 @@ public class EventManager {
         if (mEventBus == null) {
             return;
         }
-        mEventBus.post(mEventBus);
+        mEventBus.post(message);
     }
 
     public void register(Object subscriber) {
@@ -31,6 +31,7 @@ public class EventManager {
 
         }
     }
+
     public void unregister(Object subscriber) {
         if (mEventBus == null || subscriber == null) {
             return;

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.baidu.mapapi.model.LatLng;
 import com.whereru.greengrass.goforit.commonmodule.utils.Log;
+import com.whereru.greengrass.goforit.commonmodule.utils.Preferences;
 import com.whereru.greengrass.goforit.okhttp.HttpClient;
 import com.whereru.greengrass.goforit.okhttp.callback.CallBack;
 import com.whereru.greengrass.goforit.okhttp.parser.StringParser;
@@ -22,11 +23,11 @@ public class UploadLocation {
     private static final OkHttpClient client = new OkHttpClient();
 
     public void onLocationChanged(LatLng coordinate) {
-        String channel_id = PushPreferences.getInstance(context).getChannelId(null);
+        String channel_id = Preferences.getInstance(context).getChannelId(null);
         if (TextUtils.isEmpty(channel_id)) {
             return;
         }
-        long businessId = PushPreferences.getInstance(context).getCurrentBusinessId();
+        long businessId = Preferences.getInstance(context).getCurrentBusinessId();
         Log.e("upload business ID:" + businessId + "." + android.os.Process.myPid());
         HttpClient client = HttpClient.getInstance();
         // 估计有缓存

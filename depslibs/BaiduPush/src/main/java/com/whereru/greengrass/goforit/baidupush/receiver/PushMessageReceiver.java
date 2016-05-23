@@ -45,7 +45,7 @@ public class PushMessageReceiver extends com.baidu.android.pushservice.PushMessa
 
     @Override
     public void onMessage(Context context, String rawData, String otherMsg) {
-        Log.e("onMessage rawData : " + rawData + " ,otherMsg " + otherMsg);
+        Log.i("onMessage rawData : " + rawData + " ,otherMsg " + otherMsg);
         PushMessageParser.parse(rawData);
     }
 

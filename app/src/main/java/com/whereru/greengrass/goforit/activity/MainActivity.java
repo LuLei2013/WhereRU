@@ -2,13 +2,12 @@ package com.whereru.greengrass.goforit.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.View;
 
 import com.whereru.greengrass.goforit.R;
 import com.whereru.greengrass.goforit.adapter.MainFragmentAdapter;
 import com.whereru.greengrass.goforit.commonmodule.EventManager;
-import com.whereru.greengrass.goforit.commonmodule.UiHandler;
+import com.whereru.greengrass.goforit.commonmodule.eventmessage.LocateMessage;
 import com.whereru.greengrass.goforit.commonmodule.eventmessage.PushMessage;
 import com.whereru.greengrass.goforit.commonmodule.utils.Log;
 import com.whereru.greengrass.goforit.ui.BaseActivity;
@@ -26,8 +25,8 @@ public class MainActivity extends BaseActivity {
     private MainFragmentAdapter mMainFragmentAdapter;
 
 
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_main);
         intView();
         addListeners();
@@ -69,7 +68,7 @@ public class MainActivity extends BaseActivity {
         mMainControlRelationShip = findViewById(R.id.main_content_control_relationship);
         mMainFragmentAdapter = new MainFragmentAdapter(getSupportFragmentManager());
         mFragmentViewPager.setAdapter(mMainFragmentAdapter);
-        mFragmentViewPager.setCurrentItem(MainFragmentAdapter.FRAGMENT_POSITION_MESSAGE);
+        mFragmentViewPager.setCurrentItem(MainFragmentAdapter.FRAGMENT_POSITION_MAP);
         mFragmentViewPager.setHorizonalSrocll(false);
     }
 
@@ -111,10 +110,24 @@ public class MainActivity extends BaseActivity {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handlePushMessage(PushMessage message) {
+        Log.e("MainActivity 收到一个Push消息" + message.toString());
         if (message == null) {
             return;
         }
-        Log.e("MainActivity 收到一个Push消息" + message.toString());
+
+    }
+
+    /**
+     * EventBus 统一入口
+     *
+     * @param message
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleLocationMessage(LocateMessage message) {
+        Log.i(" MainActivity 收到一个定位消息 :" + (message == null ? "null" : message.toString()));
+        if (message == null) {
+            return;
+        }
     }
 
 }

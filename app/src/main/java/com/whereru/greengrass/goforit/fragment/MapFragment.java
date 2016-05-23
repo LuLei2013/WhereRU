@@ -20,6 +20,7 @@ import com.whereru.greengrass.goforit.R;
 import com.whereru.greengrass.goforit.commonmodule.EventManager;
 import com.whereru.greengrass.goforit.commonmodule.UiHandler;
 import com.whereru.greengrass.goforit.commonmodule.eventmessage.LocateMessage;
+import com.whereru.greengrass.goforit.commonmodule.utils.Log;
 import com.whereru.greengrass.goforit.ui.BaseFragment;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -121,6 +122,7 @@ public class MapFragment extends BaseFragment {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleLocationMessage(LocateMessage message) {
+        Log.i(" MapFragment Receive a LocationMessage :" + (message == null ? "null" : message.toString()));
         if (message == null) {
             return;
         }

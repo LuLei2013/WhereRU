@@ -35,8 +35,9 @@ public class UiHandler {
             if (msg == null) {
                 return;
             }
-            Log.i("UiHandler 收到消息:" + msg == null ? "null" : msg.toString());
-            EventManager.getInstance().post(msg.obj);
+            Log.i("UiHandler 收到消息:" + msg.toString());
+            LocateMessage locationMessage = (LocateMessage) msg.obj;
+            EventManager.getInstance().post(locationMessage);
         }
     };
 

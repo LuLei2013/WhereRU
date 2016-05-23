@@ -30,7 +30,7 @@ public class RelationShipFragment extends BaseFragment {
 
     public RelationShipFragment() {
         // 为Fragment 注册EventBus, 使得它可以接收到Push消息回调
-        EventBus.getDefault().register(this);
+//        EventBus.getDefault().register(this);
     }
 
     @Nullable
@@ -81,7 +81,7 @@ public class RelationShipFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         // 为Fragment 撤销EventBus
-        EventBus.getDefault().unregister(this);
+//        EventBus.getDefault().unregister(this);
     }
 }
 

@@ -116,7 +116,7 @@ public class MessageFragment extends BaseFragment {
 
     private void test() {
         mMessageItemList = new ArrayList<>();
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 15; i++) {
             mMessageItemList.add(new MessageItem("businessUrl", "businessAvatarUrl", "数字山谷" + i, "hell,times is :" + i));
         }
     }
