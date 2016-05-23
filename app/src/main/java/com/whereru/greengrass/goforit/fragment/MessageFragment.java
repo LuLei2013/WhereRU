@@ -41,14 +41,12 @@ public class MessageFragment extends BaseFragment {
             @Override
             public void onListChanged() {
                 super.onListChanged();
-                Log.i("@MessageFragment#onCreateView#mSwipeListView#BaseSwipeListViewListener#onListChanged");
             }
 
             @Override
             public void onClickFrontView(int position) {
 
                 super.onClickFrontView(position);
-                Log.i("@MessageFragment#onCreateView#mSwipeListView#BaseSwipeListViewListener#onClickFrontView?onClickFrontView=" + position);
             }
 
         });

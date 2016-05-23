@@ -1,4 +1,4 @@
-package com.whereru.greengrass.goforit.baidupush.utils;
+package com.whereru.greengrass.goforit.commonmodule.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -6,35 +6,31 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.text.TextUtils;
 
-import com.whereru.greengrass.goforit.commonmodule.utils.Log;
-
 /**
  * Created by lulei on 16/5/9.
  */
-public class PushPreferences {
+public class Preferences {
     public static final String PREFERENCE_NAME = "push_preference";
     public static final String APP_ID = "app_id";
     public static final String API_KEY = "api_key";
     public static final String USER_ID = "user_id";
     public static final String CHANNEL_ID = "channel_id";
     public static final String CURRENT_BUSINESS_ID = "current_business_id";
-    private static volatile PushPreferences mInstance;
+    private static volatile Preferences mInstance;
 
     private SharedPreferences mPref;
     private SharedPreferences.Editor mEditor;
 
-    private PushPreferences(Context context) {
+    private Preferences(Context context) {
         mPref = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
         mEditor = mPref.edit();
     }
 
-    public static PushPreferences getInstance(Context context) {
+    public static Preferences getInstance(Context context) {
         if (mInstance == null) {
-            synchronized (PushPreferences.class) {
+            synchronized (Preferences.class) {
                 if (mInstance == null) {
-                    Log.e("pname:" + getCurProcessName(context) + "++++++++++pid:" + android.os.Process.myPid());
-                    printStackTrace();
-                    mInstance = new PushPreferences(context.getApplicationContext());
+                    mInstance = new Preferences(context.getApplicationContext());
                 }
             }
         }
@@ -122,14 +118,4 @@ public class PushPreferences {
         return null;
     }
 
-    static void printStackTrace() {
-        StackTraceElement[] stackElements = new Throwable().getStackTrace();
-        if (stackElements != null) {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < stackElements.length; i++) {
-                sb.append(stackElements[i] + "\n");
-            }
-            Log.e(sb.toString());
-        }
-    }
 }

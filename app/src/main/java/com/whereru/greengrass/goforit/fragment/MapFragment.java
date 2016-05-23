@@ -1,6 +1,7 @@
 package com.whereru.greengrass.goforit.fragment;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,13 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.whereru.greengrass.goforit.R;
+import com.whereru.greengrass.goforit.commonmodule.EventManager;
+import com.whereru.greengrass.goforit.commonmodule.UiHandler;
+import com.whereru.greengrass.goforit.commonmodule.eventmessage.LocateMessage;
 import com.whereru.greengrass.goforit.ui.BaseFragment;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by didi on 16/5/18.
@@ -26,13 +33,12 @@ public class MapFragment extends BaseFragment {
     private BaiduMap mBaiduMap;
     private Marker mCurrentLoationMarker;
     private MarkerOptions mMarkerOptions;
-    UiHandler.LocationChangeListener mLocationChangeListener = new UiHandler.LocationChangeListener() {
-        @Override
-        public void onLocationChanged(LatLng coordinate) {
-            onLocationChange(coordinate);
-        }
-    };
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        register();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -52,7 +58,7 @@ public class MapFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         mMapView.onDestroy();
-        UiHandler.unregisterLocationChangedListener(mLocationChangeListener);
+        unregister();
     }
 
     @Override
@@ -94,10 +100,30 @@ public class MapFragment extends BaseFragment {
 
         mBaiduMap.setMapStatus(MapStatusUpdateFactory.zoomTo(17));
         //注册地理位置变化的监听器
-        UiHandler.registerLocationChangedListener(mLocationChangeListener);
         //构建MarkerOption，用于在地图上添加Marker是设置地理位置参数
         mMarkerOptions = new MarkerOptions()
                 .icon(BitmapDescriptorFactory
                         .fromResource(R.mipmap.location));
+    }
+
+    private void register() {
+        EventManager.getInstance().register(this);
+    }
+
+    private void unregister() {
+        EventManager.getInstance().unregister(this);
+    }
+
+    /**
+     * EventBus 统一入口
+     *
+     * @param message
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleLocationMessage(LocateMessage message) {
+        if (message == null) {
+            return;
+        }
+        onLocationChange(message.getLocation());
     }
 }

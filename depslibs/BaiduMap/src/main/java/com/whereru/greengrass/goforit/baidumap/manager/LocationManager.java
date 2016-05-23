@@ -9,12 +9,13 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.model.LatLng;
 import com.whereru.greengrass.goforit.commonmodule.UiHandler;
+import com.whereru.greengrass.goforit.commonmodule.eventmessage.LocateMessage;
 import com.whereru.greengrass.goforit.commonmodule.utils.Log;
 
 /**
  * 百度定位服务管理,百度定位初始化并启动后,会心跳般的不断以接口回调的方式返回最新的地理位置坐标信息,
  * LocationManager类封装了定位服务管理,使得当地理位置更新时,借助UiHandler向UI线程中产生一个消息,
- * 该消息类型为{@link UiHandler#MSG_UPDATE_CURRENT_LOCATION},然后由UiHandler继续通知关心该事件的
+ * 该消息类型为{@link UiHandler#MSG_UPDATE_LOCATION},然后由UiHandler继续通知关心该事件的
  * 观察者.
  * Created by lulei on 16/5/9.
  */
@@ -34,8 +35,10 @@ public final class LocationManager {
         public void onReceiveLocation(BDLocation location) {
             Log.i("收到百度定位回调:" + dumpLocation(location));
             Message msg = new Message();
-            msg.what = UiHandler.MSG_UPDATE_CURRENT_LOCATION;
-            msg.obj = new LatLng(location.getLatitude(), location.getLongitude());
+            msg.what = UiHandler.MSG_UPDATE_LOCATION;
+            LocateMessage locateMessage = new LocateMessage();
+            locateMessage.setLocation(new LatLng(location.getLatitude(), location.getLongitude()));
+            msg.obj = locateMessage;
             UiHandler.sendMessage(msg);
         }
     };

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="50dp"
+        android:background="#ff8B8682">
+
+
+        <LinearLayout
+            android:id="@+id/business_coming_content_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/avatar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|left"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/business_coming_content_title_business_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="28sp"
+                    tools:text="数字山谷" />
+
+                <TextView
+                    android:id="@+id/business_coming_content_title_business_create_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    tools:text="卢磊上班的上班的地方..." />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/icon_sg_scanline"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@id/business_coming_content_title"
+            android:background="@drawable/icon_sg_scanline" />
+
+
+        <LinearLayout
+            android:id="@+id/business_coming_content_control"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/business_coming_content_control_dismiss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:text="忽略"
+                android:textSize="28sp" />
+
+            <Button
+                android:id="@+id/business_coming_content_control_goforit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="打开"
+                android:textSize="28sp" />
+        </LinearLayout>
+
+        <include
+            android:id="@+id/business_coming_content_detail"
+            layout="@layout/layout_business_coming_content_detail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/business_coming_content_control"
+            android:layout_below="@id/icon_sg_scanline"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+</RelativeLayout>

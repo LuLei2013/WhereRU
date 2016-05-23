@@ -3,8 +3,8 @@ package com.whereru.greengrass.goforit.baidupush.receiver;
 import android.content.Context;
 
 import com.whereru.greengrass.goforit.baidupush.utils.PushMessageParser;
-import com.whereru.greengrass.goforit.baidupush.utils.PushPreferences;
 import com.whereru.greengrass.goforit.commonmodule.utils.Log;
+import com.whereru.greengrass.goforit.commonmodule.utils.Preferences;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class PushMessageReceiver extends com.baidu.android.pushservice.PushMessa
     @Override
     public void onBind(Context context, int errorCode, String appId, String userId, String channelId, String requestId) {
         Log.e("onBind  errorCode:" + errorCode + " , appId :" + appId + "  ,userId :" + userId + "  ,channelId:" + channelId + "  ,requestId :" + requestId);
-        if (errorCode == 0 && !PushPreferences.getInstance(context).contains(PushPreferences.CHANNEL_ID)) {
+        if (errorCode == 0) {
             updatePushParas(context, appId, userId, channelId);
         }
 
@@ -44,8 +44,8 @@ public class PushMessageReceiver extends com.baidu.android.pushservice.PushMessa
     }
 
     @Override
-    public void onMessage(Context context, String rawData, String s1) {
-        Log.e("onMessage rawData : " + rawData + " ,s1 " + s1);
+    public void onMessage(Context context, String rawData, String otherMsg) {
+        Log.e("onMessage rawData : " + rawData + " ,otherMsg " + otherMsg);
         PushMessageParser.parse(rawData);
     }
 
@@ -60,8 +60,8 @@ public class PushMessageReceiver extends com.baidu.android.pushservice.PushMessa
     }
 
     private void updatePushParas(Context context, String appId, String userId, String channelId) {
-        PushPreferences.getInstance(context).setAppId(appId);
-        PushPreferences.getInstance(context).setUserId(userId);
-        PushPreferences.getInstance(context).setChannelId(channelId);
+        Preferences.getInstance(context).setAppId(appId);
+        Preferences.getInstance(context).setUserId(userId);
+        Preferences.getInstance(context).setChannelId(channelId);
     }
 }

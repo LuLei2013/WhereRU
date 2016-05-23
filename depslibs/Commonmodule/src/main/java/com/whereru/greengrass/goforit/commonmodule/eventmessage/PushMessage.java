@@ -7,20 +7,20 @@ import java.io.Serializable;
 
 /**
  * Push 消息对应的实体类
- *
+ * <p/>
  * status 值为1时,标识用户进入商圈,data字段为该商圈的相关信息
  * status 值为2时,标识用户离开当前并进入新的商圈,data字段为新的商圈的相关信息
  * status 值为3时,标识用户离开当前商圈,data字段为空
  * Created by lulei on 16/5/10.
  */
-public class PushMessage implements Serializable {
+public class PushMessage extends Message {
     @SerializedName("status")
     private int mStatus;
     @SerializedName("data")
     private Data data;
 
     public PushMessage() {
-
+        super(MessageType.PUSH_MESSAGE_TYPE);
     }
 
     public void setStatus(int status) {

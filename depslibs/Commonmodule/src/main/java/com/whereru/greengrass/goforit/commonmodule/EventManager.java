@@ -1,4 +1,4 @@
-package com.whereru.greengrass.goforit.eventbus;
+package com.whereru.greengrass.goforit.commonmodule;
 
 
 import com.whereru.greengrass.goforit.commonmodule.utils.Log;
@@ -20,6 +20,18 @@ public class EventManager {
     }
 
     public void register(Object subscriber) {
+        if (mEventBus == null || subscriber == null) {
+            return;
+        }
+        try {
+            mEventBus.register(subscriber);
+        } catch (Exception e) {
+            Log.i(e.getLocalizedMessage());
+        } finally {
+
+        }
+    }
+    public void unregister(Object subscriber) {
         if (mEventBus == null || subscriber == null) {
             return;
         }

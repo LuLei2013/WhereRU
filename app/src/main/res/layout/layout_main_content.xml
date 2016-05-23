@@ -16,5 +16,6 @@
         layout="@layout/layout_main_content_control"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/main_content_content_viewpager" />
 </RelativeLayout>

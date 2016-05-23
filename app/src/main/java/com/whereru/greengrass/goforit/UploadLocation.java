@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.baidu.mapapi.model.LatLng;
-import com.whereru.greengrass.goforit.baidupush.utils.PushPreferences;
 import com.whereru.greengrass.goforit.commonmodule.utils.Log;
 import com.whereru.greengrass.goforit.okhttp.HttpClient;
 import com.whereru.greengrass.goforit.okhttp.callback.CallBack;

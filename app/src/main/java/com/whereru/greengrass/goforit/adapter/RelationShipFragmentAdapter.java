@@ -9,11 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.whereru.greengrass.goforit.R;
-import com.whereru.greengrass.goforit.baidupush.entity.PushMessage;
-import com.whereru.greengrass.goforit.fragment.MessageFragment;
+import com.whereru.greengrass.goforit.commonmodule.eventmessage.PushMessage;
 import com.whereru.greengrass.goforit.swipelistview.SwipeListView;
 
 import java.util.List;
+
 
 public class RelationShipFragmentAdapter extends BaseAdapter {
 

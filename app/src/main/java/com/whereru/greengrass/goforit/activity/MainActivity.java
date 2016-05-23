@@ -1,13 +1,21 @@
 package com.whereru.greengrass.goforit.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.os.PersistableBundle;
 import android.view.View;
 
 import com.whereru.greengrass.goforit.R;
 import com.whereru.greengrass.goforit.adapter.MainFragmentAdapter;
+import com.whereru.greengrass.goforit.commonmodule.EventManager;
+import com.whereru.greengrass.goforit.commonmodule.UiHandler;
+import com.whereru.greengrass.goforit.commonmodule.eventmessage.PushMessage;
+import com.whereru.greengrass.goforit.commonmodule.utils.Log;
 import com.whereru.greengrass.goforit.ui.BaseActivity;
 import com.whereru.greengrass.goforit.ui.BaseViewPager;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 public class MainActivity extends BaseActivity {
@@ -18,12 +26,12 @@ public class MainActivity extends BaseActivity {
     private MainFragmentAdapter mMainFragmentAdapter;
 
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.layout_main);
         intView();
         addListeners();
+        regitser();
     }
 
 
@@ -32,10 +40,6 @@ public class MainActivity extends BaseActivity {
         super.onResume();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 
     private void addListeners() {
         mMainControlMessage.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +72,51 @@ public class MainActivity extends BaseActivity {
         mFragmentViewPager.setCurrentItem(MainFragmentAdapter.FRAGMENT_POSITION_MESSAGE);
         mFragmentViewPager.setHorizonalSrocll(false);
     }
+
+    /**
+     * @param intent
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregister();
+    }
+
+
+    /**
+     * 注册为处理EventBus入口
+     */
+
+    private void regitser() {
+        EventManager.getInstance().register(this);
+    }
+
+    /**
+     * 取消处理EventBus 事件
+     */
+    private void unregister() {
+        EventManager.getInstance().unregister(this);
+    }
+
+    /**
+     * EventBus 统一入口
+     *
+     * @param message
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handlePushMessage(PushMessage message) {
+        if (message == null) {
+            return;
+        }
+        Log.e("MainActivity 收到一个Push消息" + message.toString());
+    }
+
 }
 
 

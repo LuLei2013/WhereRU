@@ -127,8 +127,25 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <data
+                    android:host="com.whereru.greengrass.goforit.activity.BusinessComingActivity"
+                    android:scheme="whereru" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
         </activity>
-
+        <activity
+            android:name=".activity.BusinessComingActivity"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <data
+                    android:host="com.whereru.greengrass.goforit.activity.BusinessComingActivity"
+                    android:scheme="whereru.goforit" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

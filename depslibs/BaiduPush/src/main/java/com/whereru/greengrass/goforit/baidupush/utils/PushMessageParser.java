@@ -1,51 +1,33 @@
 package com.whereru.greengrass.goforit.baidupush.utils;
 
 
+import android.os.Message;
+
 import com.google.gson.Gson;
+import com.whereru.greengrass.goforit.commonmodule.UiHandler;
+import com.whereru.greengrass.goforit.commonmodule.eventmessage.ErrorMessage;
 import com.whereru.greengrass.goforit.commonmodule.eventmessage.PushMessage;
 import com.whereru.greengrass.goforit.commonmodule.utils.GsonJson;
 
 /**
- * Created by didi on 16/5/11.
+ * Created by lulei on 16/5/11.
  */
 public class PushMessageParser {
 
     public static void parse(String json) {
+        PushMessage pushMessage = null;
+        Message msg = new Message();
         try {
             Gson gson = GsonJson.getInstance();
-            PushMessage msg = gson.fromJson(json, PushMessage.class);
-            if (msg == null) {
-                sendPushErrorMessage("Push 推送的消息无法解析! 推送的内容为 :" + json);
-                return;
+            pushMessage = gson.fromJson(json, PushMessage.class);
+            msg.obj = pushMessage;
+            msg.what = UiHandler.MSG_RECEIVE_PUSH;
+        } finally {
+            if (pushMessage == null) {
+                msg.obj = new ErrorMessage("推送消息格式错误:" + json);
+                msg.what = UiHandler.MSG_RECEIVE_ERROR;
             }
-            switch (msg.getStatus()) {
-                case 1:
-                    sendGoIntoBusinessMessage(msg);
-                    break;
-                case 2:
-                    sendSwitchBusinessMessage(msg);
-                    break;
-                case 3:
-                    sendGoOutBusinessMessage(msg);
-                    break;
-                default:
-                    sendPushErrorMessage("Push 推送的消息无法解析! 推送的内容为 :" + json);
-            }
-        } catch (Exception e) {
-            sendPushErrorMessage("Push 推送的消息无法解析! 推送的内容为 :" + json);
+            UiHandler.sendMessage(msg);
         }
-
-    }
-
-    private static void sendGoIntoBusinessMessage(PushMessage msg) {
-    }
-
-    private static void sendGoOutBusinessMessage(PushMessage msg) {
-    }
-
-    private static void sendSwitchBusinessMessage(PushMessage msg) {
-    }
-
-    private static void sendPushErrorMessage(String msg) {
     }
 }

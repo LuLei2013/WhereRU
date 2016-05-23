@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 
 import com.whereru.greengrass.goforit.R;
 import com.whereru.greengrass.goforit.adapter.RelationShipFragmentAdapter;
-import com.whereru.greengrass.goforit.baidupush.entity.PushMessage;
-import com.whereru.greengrass.goforit.notification.NotificationMana;
+import com.whereru.greengrass.goforit.commonmodule.eventmessage.PushMessage;
 import com.whereru.greengrass.goforit.swipelistview.BaseSwipeListViewListener;
 import com.whereru.greengrass.goforit.swipelistview.SwipeListView;
 import com.whereru.greengrass.goforit.ui.BaseFragment;
@@ -52,14 +51,12 @@ public class RelationShipFragment extends BaseFragment {
             @Override
             public void onListChanged() {
                 super.onListChanged();
-                Log.i("@MessageFragment#onCreateView#mSwipeListView#BaseSwipeListViewListener#onListChanged");
             }
 
             @Override
             public void onClickFrontView(int position) {
 
                 super.onClickFrontView(position);
-                Log.i("@MessageFragment#onCreateView#mSwipeListView#BaseSwipeListViewListener#onClickFrontView?onClickFrontView=" + position);
             }
 
         });
@@ -79,25 +76,6 @@ public class RelationShipFragment extends BaseFragment {
         }
     }
 
-    //
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void handlePushMessage(PushMessage pushMsg) {
-        Log.e("@RelationShipFragment#handlePushMessage#pushMsg.getStatus()=:" + pushMsg.getStatus());
-        NotificationMana.addNotificaction(getActivity(), pushMsg);
-        if (pushMsg == null) {
-            return;
-        }
-        for (PushMessage msg : mRelationShipItemList) {
-            if (msg.getStatus() == pushMsg.getStatus() && pushMsg.getStatus() == 3) {
-                mRelationShipItemList.remove(msg);
-                mRelationShipFragmentAdapter.notifyDataSetChanged();
-            } else if (pushMsg.getStatus() == 1 || pushMsg.getStatus() == 2) {
-                Log.e("@RelationShipFragment#handlePushMessage#");
-                mRelationShipItemList.add(pushMsg);
-                mRelationShipFragmentAdapter.notifyDataSetChanged();
-            }
-        }
-    }
 
     @Override
     public void onDestroy() {
