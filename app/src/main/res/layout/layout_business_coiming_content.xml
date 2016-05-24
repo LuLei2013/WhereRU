@@ -24,6 +24,7 @@
             android:padding="5dp">
 
             <ImageView
+                android:id="@+id/business_coming_content_title_business_avatar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/avatar" />
@@ -42,7 +43,7 @@
                     tools:text="数字山谷" />
 
                 <TextView
-                    android:id="@+id/business_coming_content_title_business_create_user"
+                    android:id="@+id/business_coming_content_title_create_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"

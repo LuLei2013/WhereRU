@@ -6,7 +6,7 @@ import com.whereru.greengrass.goforit.commonmodule.utils.Log;
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * Created by didi on 16/5/21.
+ * Created by lulei on 16/5/21.
  */
 public class EventManager {
 
@@ -37,7 +37,7 @@ public class EventManager {
             return;
         }
         try {
-            mEventBus.register(subscriber);
+            mEventBus.unregister(subscriber);
         } catch (Exception e) {
             Log.i(e.getLocalizedMessage());
         } finally {

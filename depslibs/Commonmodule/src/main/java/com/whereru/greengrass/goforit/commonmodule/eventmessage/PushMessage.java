@@ -39,7 +39,7 @@ public class PushMessage extends Message {
         this.data = data;
     }
 
-    public static class Data {
+    public static class Data implements Serializable{
         @SerializedName("name")
         protected String mName;//名字
         @SerializedName("abstract")

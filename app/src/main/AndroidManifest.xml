@@ -128,11 +128,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
-                <data
-                    android:host="com.whereru.greengrass.goforit.activity.BusinessComingActivity"
-                    android:scheme="whereru" />
-                <category android:name="android.intent.category.DEFAULT" />
                 <action android:name="android.intent.action.VIEW" />
+                <data android:scheme="whereru" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -141,11 +139,13 @@
             <intent-filter>
                 <data
                     android:host="com.whereru.greengrass.goforit.activity.BusinessComingActivity"
-                    android:scheme="whereru.goforit" />
+                    android:scheme="goforit" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
+
+        <service android:name=".service.UploadLocationService"></service>
     </application>
 
 </manifest>

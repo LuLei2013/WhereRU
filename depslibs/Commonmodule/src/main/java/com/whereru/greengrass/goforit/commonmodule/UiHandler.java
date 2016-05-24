@@ -36,8 +36,7 @@ public class UiHandler {
                 return;
             }
             Log.i("UiHandler 收到消息:" + msg.toString());
-            LocateMessage locationMessage = (LocateMessage) msg.obj;
-            EventManager.getInstance().post(locationMessage);
+            EventManager.getInstance().post(msg.obj);
         }
     };
 

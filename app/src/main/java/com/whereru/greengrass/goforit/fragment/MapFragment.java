@@ -107,13 +107,8 @@ public class MapFragment extends BaseFragment {
                         .fromResource(R.mipmap.location));
     }
 
-    private void register() {
-        EventManager.getInstance().register(this);
-    }
 
-    private void unregister() {
-        EventManager.getInstance().unregister(this);
-    }
+
 
     /**
      * EventBus 统一入口
@@ -122,7 +117,7 @@ public class MapFragment extends BaseFragment {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void handleLocationMessage(LocateMessage message) {
-        Log.i(" MapFragment Receive a LocationMessage :" + (message == null ? "null" : message.toString()));
+        Log.i("MapFragment Receive a LocationMessage :" + (message == null ? "null" : message.toString()));
         if (message == null) {
             return;
         }
