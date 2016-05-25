@@ -13,6 +13,7 @@ import com.whereru.greengrass.goforit.Constants;
 import com.whereru.greengrass.goforit.R;
 import com.whereru.greengrass.goforit.commonmodule.eventmessage.PushMessage;
 import com.whereru.greengrass.goforit.commonmodule.utils.Log;
+import com.whereru.greengrass.goforit.commonmodule.utils.Preferences;
 import com.whereru.greengrass.goforit.ui.BaseActivity;
 
 /**
@@ -30,8 +31,8 @@ public class BusinessComingActivity extends BaseActivity {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_business_coiming_content);
         intViews();
         addListeners();
@@ -98,6 +99,7 @@ public class BusinessComingActivity extends BaseActivity {
         mBusinessName.setText(pushMsg.getData().getName());
         mBusinessCreateUser.setText(pushMsg.getData().getUserName());
         mBusinessAbstract.setText(pushMsg.getData().getAbstract());
+        Preferences.getInstance(this).setCurrentBusinessId(pushMsg.getData().getBusinessId());
 
     }
 }

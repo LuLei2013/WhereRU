@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="transparent">#00000000</color>
+    <!-- 通用背景色 -->
+    <color name="color_business_coming_content_bg">#FF202644</color>
+    <color name="color_business_coming_content_title_bg">#FFC125</color>
 </resources>
